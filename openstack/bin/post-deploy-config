@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 
 import subprocess
-import yaml
 import os
 import sys
+import yaml
 
 import novaclient
 
 from neutronclient.v2_0 import client as ne_client
 from novaclient import client as no_client
 
-import keystoneauth1.identity.v2 as keystoneauth1_v2
 import keystoneauth1.identity.v3 as keystoneauth1_v3
 import keystoneauth1.session as keystoneauth1_session
 
@@ -18,7 +17,7 @@ import keystoneauth1.session as keystoneauth1_session
 def get_data_port_config(juju_version, service):
     data_ports = ''
     if juju_version == 1:
-        config = yaml.load(
+        config = yaml.safe_load(
             subprocess.check_output(['juju', 'get', service])
         )
         data_port_settings = config['settings']['data-port']
